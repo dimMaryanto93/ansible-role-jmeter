@@ -1,7 +1,7 @@
 `dimmaryanto93.jmeter`
 =========
 
-Repository ini digunakan untuk menginstall [apache-jmeter](https://www.apache.org/) untuk Linux
+Repository ini digunakan untuk menginstall [apache-jmeter](https://jmeter.apache.org/) untuk Linux
 
 Support platform
 
@@ -47,7 +47,7 @@ Ada beberapa variable yang temen-temen bisa gunakan untuk setting sonatype nexus
 Dependencies
 ------------
 
-Untuk mengginstall Sonatype Nexus OSS kita membuatuhkan Java Development Kit (JDK) sesuai dengan requirment dari official websiste [seperti berikut](https://help.sonatype.com/repomanager3/installation/system-requirements#SystemRequirements-Linux)
+Untuk mengginstall Apache jmeter kita membuatuhkan Java Development Kit (JDK) sesuai dengan requirment dari official websiste [seperti berikut](https://jmeter.apache.org/usermanual/get-started.html)
 
 Kita bisa menggunakan role [oracle_java](https://galaxy.ansible.com/dimmaryanto93/oracle_java) atau install manualy
 
