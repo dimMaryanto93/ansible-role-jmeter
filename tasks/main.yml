@@ -1,2 +1,50 @@
 ---
 # tasks file for ansible-jmeter
+- name: Setup & pre-requisites to install nexus
+  block:
+  - name: Ensure group 'nexus' exists
+    ansible.builtin.group:
+      name: "{{ jmeter_user }}"
+      state: present
+
+  - name: Add the user 'nexus' exists
+    ansible.builtin.user:
+      name: "{{ jmeter_user }}"
+      comment: user for using jmeter_user application
+      group: "{{ jmeter_user }}"
+      append: yes
+
+  - name: Create a directory if it does not exist 
+    ansible.builtin.file:
+      path: "{{ jmeter_installation_path }}"
+      state: directory
+      mode: '7777'
+      owner: "{{ jmeter_user }}"
+      group: "{{ jmeter_user }}"
+
+- name: Install sonatype nexus-oss packages
+  block:
+  - name: Download jmeter binary
+    ansible.builtin.unarchive:
+      src: https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-{{ jmeter_version }}.tgz
+      dest: "{{ jmeter_installation_path }}"
+      remote_src: yes
+  
+  - name: Give access to user 'jmeter' recusively
+    file: 
+      dest: "{{ jmeter_installation_path }}" 
+      owner: "{{ jmeter_user }}" 
+      group: "{{ jmeter_user }}" 
+      mode: '0777' 
+      recurse: yes
+
+  - shell: "ls -d {{ jmeter_installation_path }}/apache-jmeter-* | tail -n 1"
+    register: jmeter_version_dir_name
+
+  - name: Create a symbolic link
+    ansible.builtin.file:
+      src: "{{ jmeter_version_dir_name.stdout }}/bin/jmeter.sh"
+      dest: "{{ jmeter_installation_path }}/jmeter"
+      owner: "{{ jmeter_user }}" 
+      group: "{{ jmeter_user }}" 
+      state: link

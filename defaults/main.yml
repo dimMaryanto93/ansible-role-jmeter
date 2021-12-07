@@ -1,2 +1,5 @@
 ---
 # defaults file for ansible-jmeter
+jmeter_user: jmeter
+jmeter_version: 5.4.1
+jmeter_installation_path: /opt/jmeter
